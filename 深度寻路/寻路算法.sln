@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "寻路算法", "寻路算法\寻路算法.vcxproj", "{5A00AA86-031A-4E39-BBB6-147BD431F54B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "深度寻路", "深度寻路\深度寻路.vcxproj", "{8BA6B34E-7075-4737-B4DC-38F64AAB7202}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -15,6 +17,10 @@ Global
 		{5A00AA86-031A-4E39-BBB6-147BD431F54B}.Debug|Win32.Build.0 = Debug|Win32
 		{5A00AA86-031A-4E39-BBB6-147BD431F54B}.Release|Win32.ActiveCfg = Release|Win32
 		{5A00AA86-031A-4E39-BBB6-147BD431F54B}.Release|Win32.Build.0 = Release|Win32
+		{8BA6B34E-7075-4737-B4DC-38F64AAB7202}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8BA6B34E-7075-4737-B4DC-38F64AAB7202}.Debug|Win32.Build.0 = Debug|Win32
+		{8BA6B34E-7075-4737-B4DC-38F64AAB7202}.Release|Win32.ActiveCfg = Release|Win32
+		{8BA6B34E-7075-4737-B4DC-38F64AAB7202}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
