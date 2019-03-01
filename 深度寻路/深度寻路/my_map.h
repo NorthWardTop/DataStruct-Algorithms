@@ -21,6 +21,9 @@ private:
 template<class T>
 Map::Map()
 {
+	for (int i = 0; i < MAX_V; ++i)
+		vertex[i] = i;
+	edge[]
 }
 
 template<class T>
