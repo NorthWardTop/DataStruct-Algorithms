@@ -7,6 +7,7 @@
  * };
  */
 
+#ifdef OPEN
 #include <iostream>
 using namespace std;
 
@@ -22,7 +23,6 @@ struct ListNode {
 			cout << curNode->val << endl;
 		}
 	}
-
 };
 
 
@@ -124,4 +124,38 @@ int main()
 
 	system("pause");
 	return 0;
+}
+#endif
+///////////////////////////////////////////上述解决方案链表过长会导致计算溢出
+
+#include <iostream>
+using namespace std;
+
+
+struct ListNode {
+	int val;
+	ListNode *next;
+	ListNode(int x) : val(x), next(NULL) {}
+
+	void print()
+	{
+		for (ListNode* curNode = this; curNode != NULL; curNode = curNode->next)
+		{
+			cout << curNode->val << endl;
+		}
+	}
+};
+
+class Solution {
+public:
+	ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+
+
+
+	}
+};
+
+int main()
+{
+
 }
