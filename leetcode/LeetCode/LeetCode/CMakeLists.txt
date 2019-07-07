@@ -7,8 +7,8 @@ cmake_minimum_required (VERSION 3.8)
 # add_executable (LeetCode "LeetCode.cpp" "LeetCode.h")
 # add_executable (LeetCode "两数之和.cpp")
 # add_executable (LeetCode "两数相加.cpp")
-add_executable (LeetCode "宝石与石头.cpp")
-
+# add_executable (LeetCode "宝石与石头.cpp")
+add_executable (LeetCode "7.整数反转.cpp")
 
 
 # TODO: 如有需要，请添加测试并安装目标。
