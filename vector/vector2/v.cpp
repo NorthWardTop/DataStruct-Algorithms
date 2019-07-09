@@ -127,7 +127,27 @@ int main(int argc, char const *argv[])
 	dbgPrint<int>(v);
 	dbgPrint<int>(v2);
 	
+	vector<int> sv;
+	Vector<int>::Iterator it;
+	
+	// it.operator=;
+	// it.operator++;
+	// it.operator--;
+	// it.operator-=;
+	// it.operator+=;
+	// it.operator+;
+	// it.operator-;
 
+	// it.operator!=;
+	// it.operator<=;
+	// it.operator<;
+	// it.operator==;
+	// it.operator>=;
+	// it.operator>;
+
+	// it.operator[];
+	// it.operator*;
+	// it.operator->;
 
 
 	return 0;

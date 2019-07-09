@@ -11,11 +11,37 @@ private:
 	T *pBuf;
 	size_t size;
 	size_t capacity;
+public:
+	struct Iterator {
+		T *pHead;
+		Iterator();
+
+		void operator=(Iterator const& src);
+		Iterator & operator++(); //++i 
+		const Iterator operator++(int i = 0); //i++
+		Iterator & operator--(); //--i 
+		const Iterator operator--(int i = 0); //i--
+		void operator-=(Iterator const& src);
+		void operator+=(Iterator const& src);
+		Iterator operator+(Iterator const& src) const;
+		Iterator operator-(Iterator const& src) const;
+
+		bool operator!=(Iterator const& it) const;
+		bool operator<=(Iterator const& it) const;
+		bool operator<(Iterator const& it) const;
+		bool operator==(Iterator const& it) const;
+		bool operator>=(Iterator const& it) const;
+		bool operator>(Iterator const& it) const;
+
+		T const& operator[](int index) const;
+		Iterator operator*();
+		Iterator *operator->();
+	};
 public: //构造析构
 	Vector();
 	Vector(Vector<T> const& other); //已测试
 	Vector(size_t num, T const& val); //已测试
-	// Vector(Vector<T>::iterator begin, Vector<T>::iterator end);
+	// Vector(Vector<T>::Iterator begin, Vector<T>::Iterator end);
 	~Vector();
 public: //获取属性/读函数
 	size_t getSize() const; //已测试
@@ -90,6 +116,45 @@ Vector<T>::~Vector()
 		delete []pBuf;
 }
 
+
+template<class T>
+Vector<T>::Iterator::Iterator()
+{
+	this->pHead = NULL;
+}
+
+template<class T>
+void Vector<T>::Iterator::operator=(Iterator const& src)
+{
+	this->pHead = src.pHead;
+}
+
+template<class T>
+typename Vector<T>::Iterator & Vector<T>::Iterator::operator++() //++i 
+{
+	++pHead;
+	return *this;
+}
+
+
+// const Iterator operator++(int i = 0); //i++
+// Iterator & operator--(); //--i 
+// const Iterator operator--(int i = 0); //i--
+// void operator-=(Iterator const& src);
+// void operator+=(Iterator const& src);
+// Iterator operator+(Iterator const& oa, Iterator const& ob);
+// Iterator operator-(Iterator const& oa, Iterator const& ob);
+
+// bool operator!=(Iterator const& it) const;
+// bool operator<=(Iterator const& it) const;
+// bool operator<(Iterator const& it) const;
+// bool operator==(Iterator const& it) const;
+// bool operator>=(Iterator const& it) const;
+// bool operator>(Iterator const& it) const;
+
+// T const& operator[](int index) const;
+// Iterator operator*();
+// Iterator *operator->();
 
 /**
  * @description: 属性获取
