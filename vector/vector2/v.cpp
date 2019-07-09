@@ -105,23 +105,27 @@ void dbgPrint(Vector<T> v)
 }
 
 
+template <class T>
+void stdDbgPrint(vector<T> v)
+{
+	size_t size = v.size();
+	size_t capacity = v.capacity();
+	T val;
+	cout << '[' << size << '/' << capacity << ']' << '	' ;
+	for (size_t i = 0; i < v.size(); ++i) {
+		val = v.at(i);
+		cout << val << ' ';
+	}
+	cout << endl;
+}
+
 int main(int argc, char const *argv[])
 {
 	Vector<int> v(4, 78);
 	Vector<int> v2;
-
-	v.push_back(3);
+	v2 = v;
 	dbgPrint<int>(v);
 	dbgPrint<int>(v2);
-	
-	int a = v.back();
-	cout << a << endl;
-
-	
-	if (v2.empty()) 
-		cout << "真" << endl;
-	else
-		cout << "假" << endl;
 	
 
 

@@ -14,14 +14,17 @@ private:
 public: //构造析构
 	Vector();
 	Vector(Vector<T> const& other); //已测试
-	Vector(size_t num, T const& val); //已测试 
+	Vector(size_t num, T const& val); //已测试
 	// Vector(Vector<T>::iterator begin, Vector<T>::iterator end);
 	~Vector();
 public: //获取属性/读函数
 	size_t getSize() const; //已测试
 	size_t getCapacity() const; //已测试
+public: //容器属性操作
+	void reserve(size_t sz); //已测试,与库函数有区别
+	void resize(size_t sz, T const& val); //已测试
 public: //运算符重载
-	Vector<T> & operator=(Vector<T> const& srcVector) const; //已测试
+	void operator=(Vector<T> const& srcVector); //已测试(有bug)
 	T & operator[](size_t const i) const; //已测试
 	bool operator==(Vector<T> const& rval) const; //已测试
 	bool operator!=(Vector<T> const& rval) const; //已测试
@@ -33,11 +36,13 @@ public: //数据操作
 	T & at(size_t const i) const; //已测试
 	T & front() const; //已测试 
 	T & back() const; //已测试
-	bool empty() const; 
+	bool empty() const; //已测试
 	
-
 	void push_back(T const& val); //已测试
-
+	void pop_back(); //已测试
+	void clear(); //已测试
+	void assign(size_t num, T const& val); //已测试
+	void swap(Vector &from);
 };
 
 
@@ -103,6 +108,23 @@ size_t Vector<T>::getCapacity() const
 	return capacity;
 }
 
+template<class T> 
+void Vector<T>::reserve(size_t sz) 
+{
+	if (sz < size) 
+		return;
+	capacity = sz + ((sz >> 1) > 1 ? sz >> 1:1);
+}
+
+template<class T> 
+void Vector<T>::resize(size_t sz, T const& val)
+{
+	if ( sz > this->size) 
+		for (size_t i = size - 1; i < sz; ++i)
+			this->push_back(val);
+	size = sz;
+}
+
 /**
  * @description: 运算符重载函数
  * @param {type} 
@@ -115,9 +137,12 @@ T & Vector<T>::operator[](size_t i) const
 }
 
 template <class T>
-Vector<T> & Vector<T>::operator=(Vector<T> const& srcVector) const
+void Vector<T>::operator=(Vector<T> const& srcv)
 {
-	return *this;
+	this->size = srcv.size;
+	this->capacity = srcv.capacity;
+	this->pBuf = new T[this->capacity];
+	memcpy(this->pBuf, srcv.pBuf, (this->size)*sizeof(T));
 }
 
 template <class T>
@@ -139,7 +164,6 @@ bool Vector<T>::operator==(Vector<T> const& rval) const
 		ret = false;
 	return ret;
 }
-
 
 template <class T>
 bool Vector<T>::operator!=(Vector<T> const& rval) const
@@ -225,8 +249,6 @@ bool Vector<T>::empty() const
 	return size == 0 ? true:false;
 }
 
-
-
 template<class T>
 void Vector<T>::push_back(T const& val)
 {
@@ -241,7 +263,38 @@ void Vector<T>::push_back(T const& val)
 	pBuf[size++] = val;
 }
 
+template <class T>
+void Vector<T>::pop_back()
+{
+	if (size > 0)
+		size--;
+}
 
+template <class T>
+void Vector<T>::clear()
+{
+	size = 0;
+}
+
+template <class T>
+void Vector<T>::assign(size_t num, T const& val)
+{
+	for (size_t i = 0; i < num; ++i) {
+		if (i < this->size)
+			this->pBuf[i] = val;
+		else
+			this->push_back(val);
+	}
+}
+
+template <class T>
+void Vector<T>::swap(Vector &from)
+{
+	Vector<T> tmp;
+	tmp = *this;
+	*this = from;
+	from = tmp;
+}
 
 
 #endif
