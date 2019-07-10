@@ -127,8 +127,11 @@ int main(int argc, char const *argv[])
 	dbgPrint<int>(v);
 	dbgPrint<int>(v2);
 	
-	vector<int> sv;
 	Vector<int>::Iterator it;
+	for (it = v.begin(); it != v.end(); it+=1) 
+		printf("%d ", *it);
+
+
 	
 	// it.operator=;
 	// it.operator++;
