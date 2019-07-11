@@ -2,7 +2,7 @@
 #ifndef _V_H_
 #define _V_H_
 
-#include <string>
+#include <string.h>
 
 
 template<class T>
@@ -27,26 +27,26 @@ public:
 		Iterator operator+(int index) const; //已测试
 		Iterator operator-(int index) const; //已测试
 
-		bool operator!=(Iterator const& it) const;
-		bool operator<=(Iterator const& it) const;
-		bool operator<(Iterator const& it) const;
-		bool operator==(Iterator const& it) const;
-		bool operator>=(Iterator const& it) const;
-		bool operator>(Iterator const& it) const;
+		bool operator!=(Iterator const& it) const; //已测试
+		bool operator==(Iterator const& it) const; //已测试
+		bool operator<=(Iterator const& it) const; //已测试
+		bool operator<(Iterator const& it) const; //已测试
+		bool operator>=(Iterator const& it) const; //已测试
+		bool operator>(Iterator const& it) const; //已测试
 
-		T const& operator[](int index) const;
-		T const& operator*() const;
-		T const *operator->() const;
+		T const& operator[](int index) const; //已测试
+		T const& operator*() const; //已测试
+		T const *const operator->() const;
 	};
 public: //构造析构
 	Vector();
 	Vector(Vector<T> const& other); //已测试
 	Vector(size_t num, T const& val); //已测试
-	// Vector(Vector<T>::Iterator begin, Vector<T>::Iterator end);
+	Vector(Vector<T>::Iterator begin, Vector<T>::Iterator end);
 	~Vector();
 public: //获取属性/读函数
-	const Iterator begin() const;
-	const Iterator end() const;
+	const Iterator begin() const; //已测试
+	const Iterator end() const; //已测试
 	size_t getSize() const; //已测试
 	size_t getCapacity() const; //已测试
 public: //容器属性操作
@@ -71,7 +71,7 @@ public: //数据操作
 	void pop_back(); //已测试
 	void clear(); //已测试
 	void assign(size_t num, T const& val); //已测试
-	void swap(Vector &from);
+	void swap(Vector &from); //已测试
 };
 
 
@@ -111,6 +111,12 @@ Vector<T>::Vector(size_t num, T const& val)
 		pBuf[i] = val;
 }
 
+
+template <class T>
+Vector<T>::Vector(Vector<T>::Iterator begin, Vector<T>::Iterator end)
+{
+	
+}
 
 template<class T>
 Vector<T>::~Vector()
@@ -204,11 +210,46 @@ bool Vector<T>::Iterator::operator==(Iterator const& it) const
 	return (pHead == it.pHead);
 }
 
+template<class T>
+bool Vector<T>::Iterator::operator<=(Iterator const& it) const
+{
+	return (this->pHead <= it.pHead);
+}
+
+template<class T>
+bool Vector<T>::Iterator::operator<(Iterator const& it) const
+{
+	return (this->pHead < it.pHead);
+}
+
+template<class T>
+bool Vector<T>::Iterator::operator>=(Iterator const& it) const
+{
+	return (this->pHead >= it.pHead);
+}
+
+template<class T>
+bool Vector<T>::Iterator::operator>(Iterator const& it) const
+{
+	return (this->pHead > it.pHead);
+}
+
+template<class T>
+T const& Vector<T>::Iterator::operator[](int index) const
+{
+	return *(this->pHead);
+}
 
 template<class T>
 T const& Vector<T>::Iterator::operator*() const
 {
 	return *(this->pHead);
+}
+
+template<class T>
+T const *const Vector<T>::Iterator::operator->() const
+{
+	return this->pHead;
 }
 
 

@@ -124,12 +124,17 @@ int main(int argc, char const *argv[])
 	Vector<int> v(4, 78);
 	Vector<int> v2;
 	v2 = v;
+	v.push_back(23);
+	dbgPrint<int>(v);
+	dbgPrint<int>(v2);
+	v.swap(v2);
 	dbgPrint<int>(v);
 	dbgPrint<int>(v2);
 	
-	Vector<int>::Iterator it;
-	for (it = v.begin(); it != v.end(); it+=1) 
-		printf("%d ", *it);
+	// Vector<int>::Iterator it;
+	// for (it = v.begin(); it != v.end(); it+=1) 
+	// 	printf("%d %d ", *it, it[1]);
+
 
 
 	
