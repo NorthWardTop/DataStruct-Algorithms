@@ -131,7 +131,7 @@ int main(int argc, char const *argv[])
 
 	Vector<int> v2;
 	v2 = v;
-	v2.erase(v2.end());
+	cout << *(v2.erase(v2.begin()));
 	dbgPrint(v);
 	dbgPrint(v2);
 	//cout << v.end() - v.begin();

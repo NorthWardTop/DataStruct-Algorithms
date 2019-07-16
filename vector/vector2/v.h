@@ -74,7 +74,7 @@ public:
 	void pop_back(); //已测试
 	void assign(size_t num, T const& val); //已测试
 	void assign(Iterator begin, Iterator end ); //已测试
-	Iterator erase(Iterator loc); 
+	Iterator erase(Iterator loc); //已测试
 	Iterator erase(Iterator begin, Iterator end);
 
 	void clear(); //已测试
@@ -504,12 +504,14 @@ typename Vector<T>::Iterator Vector<T>::erase(Iterator loc)
 	for (; tmp < this->end(); ++tmp)
 		*tmp = *(tmp+1);
 	this->size--;
-	return loc+1;
+	return loc;
 }
 
-
 // template <class T>
-// Vector<T>::Iterator erase(Iterator begin, Iterator end);
+// Vector<T>::Iterator Vector<T>::erase(Iterator begin, Iterator end)
+// {
+
+// }
 
 template <class T>
 void Vector<T>::swap(Vector &from)
