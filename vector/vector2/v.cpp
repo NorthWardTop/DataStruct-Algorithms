@@ -128,10 +128,14 @@ int main(int argc, char const *argv[])
 	v.push_back(2);
 	v.push_back(3);
 	v.push_back(4);
+	v.push_back(5);
+	v.push_back(6);
+	v.push_back(7);
+
 
 	Vector<int> v2;
 	v2 = v;
-	cout << *(v2.erase(v2.begin()));
+	cout << *(v2.erase(v2.begin()+1, v2.end()));
 	dbgPrint(v);
 	dbgPrint(v2);
 	//cout << v.end() - v.begin();

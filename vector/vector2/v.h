@@ -507,11 +507,16 @@ typename Vector<T>::Iterator Vector<T>::erase(Iterator loc)
 	return loc;
 }
 
-// template <class T>
-// Vector<T>::Iterator Vector<T>::erase(Iterator begin, Iterator end)
-// {
-
-// }
+template <class T>
+typename Vector<T>::Iterator Vector<T>::erase(Iterator begin, Iterator end)
+{
+	size_t len = end - begin;
+	Iterator tmp = begin;
+	for (; tmp < this->end(); ++tmp)
+		*tmp = *(tmp+len);
+	this->size-=len;
+	return begin;
+}
 
 template <class T>
 void Vector<T>::swap(Vector &from)
