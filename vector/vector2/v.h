@@ -3,6 +3,7 @@
 #define _V_H_
 
 #include <string.h>
+#include <malloc.h>
 
 
 template<class T>
@@ -26,6 +27,8 @@ public:
 		void operator+=(int index); //已测试
 		Iterator operator+(int index) const; //已测试
 		Iterator operator-(int index) const; //已测试
+		size_t operator+(Iterator const& it); //已测试
+		size_t operator-(Iterator const& it); //已测试
 
 		bool operator!=(Iterator const& it) const; //已测试
 		bool operator==(Iterator const& it) const; //已测试
@@ -35,18 +38,18 @@ public:
 		bool operator>(Iterator const& it) const; //已测试
 
 		T const& operator[](int index) const; //已测试
-		T const& operator*() const; //已测试
+		T 	& operator*(); //已测试
 		T const *const operator->() const;
 	};
 public: //构造析构
 	Vector();
 	Vector(Vector<T> const& other); //已测试
 	Vector(size_t num, T const& val); //已测试
-	Vector(Vector<T>::Iterator begin, Vector<T>::Iterator end);
+	Vector(Vector<T>::Iterator begin, Vector<T>::Iterator end); //已测试
 	~Vector();
 public: //获取属性/读函数
-	const Iterator begin() const; //已测试
-	const Iterator end() const; //已测试
+	Iterator begin() const; //已测试
+	Iterator end() const; //已测试
 	size_t getSize() const; //已测试
 	size_t getCapacity() const; //已测试
 public: //容器属性操作
@@ -66,11 +69,15 @@ public: //数据操作
 	T & front() const; //已测试 
 	T & back() const; //已测试
 	bool empty() const; //已测试
-	
+public:
 	void push_back(T const& val); //已测试
 	void pop_back(); //已测试
-	void clear(); //已测试
 	void assign(size_t num, T const& val); //已测试
+	void assign(Iterator begin, Iterator end ); //已测试
+	Iterator erase(Iterator loc); 
+	Iterator erase(Iterator begin, Iterator end);
+
+	void clear(); //已测试
 	void swap(Vector &from); //已测试
 };
 
@@ -115,7 +122,12 @@ Vector<T>::Vector(size_t num, T const& val)
 template <class T>
 Vector<T>::Vector(Vector<T>::Iterator begin, Vector<T>::Iterator end)
 {
-	
+	this->size = end - begin;
+	this->capacity = this->size;
+	this->pBuf = new T[this->size];
+	//memcpy(this->pBuf, begin, this->size);
+	for (size_t i = 0; i < this->size; ++i) 
+		this->pBuf[i] = begin.pHead[i];
 }
 
 template<class T>
@@ -197,6 +209,17 @@ typename Vector<T>::Iterator Vector<T>::Iterator::operator-(int index) const
 	return tmp;
 }
 
+// template<class T>
+// typename size_t Vector<T>::Iterator::operator+(Iterator const& it)  //已测试
+// {
+// 	return 
+// }
+
+template<class T>
+size_t Vector<T>::Iterator::operator-(Iterator const& it)  //已测试
+{
+	return (this->pHead - it.pHead);
+}
 
 template<class T>
 bool Vector<T>::Iterator::operator!=(Iterator const& it) const
@@ -241,7 +264,7 @@ T const& Vector<T>::Iterator::operator[](int index) const
 }
 
 template<class T>
-T const& Vector<T>::Iterator::operator*() const
+T & Vector<T>::Iterator::operator*()
 {
 	return *(this->pHead);
 }
@@ -253,31 +276,13 @@ T const *const Vector<T>::Iterator::operator->() const
 }
 
 
-// Iterator & operator--(); //--i 
-// const Iterator operator--(int i = 0); //i--
-// void operator-=(Iterator const& src);
-// void operator+=(Iterator const& src);
-// Iterator operator+(Iterator const& oa, Iterator const& ob);
-// Iterator operator-(Iterator const& oa, Iterator const& ob);
-
-// bool operator!=(Iterator const& it) const;
-// bool operator<=(Iterator const& it) const;
-// bool operator<(Iterator const& it) const;
-// bool operator==(Iterator const& it) const;
-// bool operator>=(Iterator const& it) const;
-// bool operator>(Iterator const& it) const;
-
-// T const& operator[](int index) const;
-// Iterator operator*();
-// Iterator *operator->();
-
 /**
  * @description: 属性获取
  * @param {type} 
  * @return: 
  */
 template<class T> 
-const typename Vector<T>::Iterator Vector<T>::begin() const
+typename Vector<T>::Iterator Vector<T>::begin() const
 {
 	Iterator tmp;
 	tmp.pHead = pBuf;
@@ -285,7 +290,7 @@ const typename Vector<T>::Iterator Vector<T>::begin() const
 }
 
 template<class T> 
-const typename Vector<T>::Iterator Vector<T>::end() const
+typename Vector<T>::Iterator Vector<T>::end() const
 {
 	Iterator tmp;
 	tmp.pHead = pBuf + size;
@@ -470,7 +475,7 @@ void Vector<T>::pop_back()
 template <class T>
 void Vector<T>::clear()
 {
-	size = 0;
+	this->size = 0;
 }
 
 template <class T>
@@ -483,6 +488,28 @@ void Vector<T>::assign(size_t num, T const& val)
 			this->push_back(val);
 	}
 }
+
+template <class T>
+void Vector<T>::assign(Iterator begin, Iterator end)
+{
+	this->clear();
+	for (Iterator i = begin; i < end; ++i)
+		this->push_back(*i);
+}
+
+template <class T>
+typename Vector<T>::Iterator Vector<T>::erase(Iterator loc)
+{
+	Iterator tmp = loc;
+	for (; tmp < this->end(); ++tmp)
+		*tmp = *(tmp+1);
+	this->size--;
+	return loc+1;
+}
+
+
+// template <class T>
+// Vector<T>::Iterator erase(Iterator begin, Iterator end);
 
 template <class T>
 void Vector<T>::swap(Vector &from)

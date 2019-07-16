@@ -121,41 +121,22 @@ void stdDbgPrint(vector<T> v)
 
 int main(int argc, char const *argv[])
 {
-	Vector<int> v(4, 78);
+	Vector<int> v;
+	Vector<int>::Iterator it;
+	
+	v.push_back(1);
+	v.push_back(2);
+	v.push_back(3);
+	v.push_back(4);
+
 	Vector<int> v2;
 	v2 = v;
-	v.push_back(23);
-	dbgPrint<int>(v);
-	dbgPrint<int>(v2);
-	v.swap(v2);
-	dbgPrint<int>(v);
-	dbgPrint<int>(v2);
-	
-	// Vector<int>::Iterator it;
-	// for (it = v.begin(); it != v.end(); it+=1) 
-	// 	printf("%d %d ", *it, it[1]);
-
-
+	v2.erase(v2.end());
+	dbgPrint(v);
+	dbgPrint(v2);
+	//cout << v.end() - v.begin();
 
 	
-	// it.operator=;
-	// it.operator++;
-	// it.operator--;
-	// it.operator-=;
-	// it.operator+=;
-	// it.operator+;
-	// it.operator-;
-
-	// it.operator!=;
-	// it.operator<=;
-	// it.operator<;
-	// it.operator==;
-	// it.operator>=;
-	// it.operator>;
-
-	// it.operator[];
-	// it.operator*;
-	// it.operator->;
 
 
 	return 0;
