@@ -135,7 +135,7 @@ int main(int argc, char const *argv[])
 
 	Vector<int> v2;
 	v2 = v;
-	cout << *(v2.erase(v2.begin()+1, v2.end()));
+	v2.insert(v2.begin()+5,2, 2333);
 	dbgPrint(v);
 	dbgPrint(v2);
 	//cout << v.end() - v.begin();

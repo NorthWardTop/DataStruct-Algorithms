@@ -75,7 +75,11 @@ public:
 	void assign(size_t num, T const& val); //已测试
 	void assign(Iterator begin, Iterator end ); //已测试
 	Iterator erase(Iterator loc); //已测试
-	Iterator erase(Iterator begin, Iterator end);
+	Iterator erase(Iterator begin, Iterator end); //已测试
+
+	Iterator insert(Iterator loc, T const& val );
+	void insert(Iterator loc, size_t num, T const& val );
+	void insert(Iterator loc, Iterator begin, Iterator end);
 
 	void clear(); //已测试
 	void swap(Vector &from); //已测试
@@ -313,9 +317,15 @@ size_t Vector<T>::getCapacity() const
 template<class T> 
 void Vector<T>::reserve(size_t sz) 
 {
-	if (sz < size) 
+	if (sz < capacity) 
 		return;
 	capacity = sz + ((sz >> 1) > 1 ? sz >> 1:1);
+	T *tmp = new T[capacity];
+	for (size_t i = 0; i < size; ++i)
+		tmp[i] = pBuf[i];
+	if (pBuf)
+		free(pBuf);
+	pBuf = tmp;
 }
 
 template<class T> 
@@ -517,6 +527,36 @@ typename Vector<T>::Iterator Vector<T>::erase(Iterator begin, Iterator end)
 	this->size-=len;
 	return begin;
 }
+
+template <class T>
+typename Vector<T>::Iterator Vector<T>::insert(Iterator loc, T const& val)
+{
+	if (loc > end())
+		throw "out_of_range";
+	reserve(size+1);
+	Iterator i;
+	for (i = end(); i > loc; --i)
+		*i = *(i - 1);
+	*i = val;
+	size++;
+	return i;
+}
+
+template <class T>
+void Vector<T>::insert(Iterator loc, size_t num, T const& val)
+{
+	if (loc > end())
+		throw "out_of_range";
+	reserve(size+num);
+	Iterator i;
+	for (i = end() + num - 1; i >= loc; --i)
+		*i = *(i - num);
+	for (i = loc - 1; i >= loc - num; --i)
+		*i = val;
+	size += num;
+}
+
+// void insert(Iterator loc, Iterator start, Iterator end);
 
 template <class T>
 void Vector<T>::swap(Vector &from)
