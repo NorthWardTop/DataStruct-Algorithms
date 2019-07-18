@@ -4,7 +4,9 @@
 
 #include <string.h>
 #include <malloc.h>
-
+#include <iostream>
+#include <vector>
+using namespace std;
 
 template<class T>
 class Vector
@@ -319,13 +321,14 @@ void Vector<T>::reserve(size_t sz)
 {
 	if (sz < capacity) 
 		return;
-	capacity = sz + ((sz >> 1) > 1 ? sz >> 1:1);
+	capacity = sz;
 	T *tmp = new T[capacity];
 	for (size_t i = 0; i < size; ++i)
 		tmp[i] = pBuf[i];
 	if (pBuf)
-		free(pBuf);
+		delete []pBuf;
 	pBuf = tmp;
+	//cout << sizeof(pBuf);
 }
 
 template<class T> 
@@ -362,10 +365,6 @@ bool Vector<T>::operator==(Vector<T> const& rval) const
 {
 	bool ret = true;
 	if (size == rval.size && capacity == rval.capacity) {
-		// if (memcmp(this->pBuf, rval.pBuf, size)) 
-		// 	ret = true;
-		// else 
-		// 	ret = false;
 		for (size_t i = 0; i < size; ++i) {
 			if (this->pBuf[i] != rval.pBuf[i]) {
 				ret = false;

@@ -82,16 +82,11 @@ swap() 交换两个Vector
 
  */
 
-#include <iostream>
+
 #include "v.h"
 
-#include <vector>
-
-
-using namespace std;
-
 template <class T>
-void dbgPrint(Vector<T> v)
+void dbgPrint(Vector<T> const& v)
 {
 	size_t size = v.getSize();
 	size_t capacity = v.getCapacity();
@@ -136,6 +131,7 @@ int main(int argc, char const *argv[])
 	Vector<int> v2;
 	v2 = v;
 	v2.insert(v2.begin()+5,2, 2333);
+
 	dbgPrint(v);
 	dbgPrint(v2);
 	//cout << v.end() - v.begin();
