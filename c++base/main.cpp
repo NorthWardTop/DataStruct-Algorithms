@@ -1,14 +1,23 @@
 #include <iostream>
 #include "test.h"
 
+using namespace std;
+
 int main(int argc, char *argv[])
 {
-	Test a(10);
-	Test b(30);
-	std::cout << a.getVal() << std::endl;
-	a.setVal(20);
-	std::cout << a.getVal() << std::endl;
-	std::swap(a, b);
-	std::cout << a.getVal() << std::endl;
+	unsigned int val = 1024;
+	bool cond = *((bool*)(&val));
+
+	cout << cond << " " << val << endl;
+	if (cond) 
+		val += 1;
+	cond = *((bool*)(&val));
+	cout << cond << " " << val << endl;
+
+	if (cond) 
+		val += 1;
+	cond = *((bool*)(&val));
+	cout << cond << " " << val << endl;
+
 	return 0;
 }

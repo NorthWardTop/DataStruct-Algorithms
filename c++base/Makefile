@@ -1,5 +1,5 @@
-TARGET=exe
-SRC=test.cpp main.cpp
+TARGET=ee
+SRC= main.cpp
 CC=g++
 
 $(TARGET):$(SRC)
